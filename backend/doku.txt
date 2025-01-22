@@ -1,0 +1,5 @@
+npm install --save-dev typescript
+npm install --save express@latest
+npm install -save-dev @types/express@latest
+npx tsc
+node dist/app.js
