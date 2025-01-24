@@ -1,0 +1,8 @@
+.full-screen{
+  height: 100%;
+  width: 100%;
+  background-image: url("/assets/images/logo.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}

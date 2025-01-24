@@ -1,0 +1,53 @@
+<div class="card error-card" *ngIf="(errorMessage$ | async) !== ''; else register">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        {{ errorMessage$ | async }}
+      </mat-card-title>
+    </mat-card-header>
+  </mat-card>
+</div>
+
+<ng-template #register>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        {{title}}
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="full-sreen">
+      <form [formGroup]="userForm" (ngSubmit)="updateUser()">
+
+        <br>
+        <mat-form-field class="register-full-width">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" name="email" placeholder="email" type="text">
+        </mat-form-field>
+        <br>
+        <mat-form-field class="register-full-width">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="pwd" name="pwd" placeholder="Pwd" type="password">
+        </mat-form-field>
+        <br>
+        <mat-form-field class="register-full-width">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" name="name" placeholder="name" type="text">
+        </mat-form-field>
+        <br>        
+        <mat-form-field class="mat-verw-form-input">
+          <mat-label>Role</mat-label>
+          <mat-select formControlName="role">
+            <mat-option *ngFor="let r of ['Basic', 'Admin'];"
+              value="{{r}}">
+              {{r}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <br>
+        <button type="submit" class="btn btn-primary">Speichern</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</ng-template>

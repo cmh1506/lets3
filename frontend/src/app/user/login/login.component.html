@@ -1,0 +1,38 @@
+<div class="card error-card" *ngIf="(errorMessage$ | async) !== ''; else register">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        {{ errorMessage$ | async }}
+      </mat-card-title>
+    </mat-card-header>
+  </mat-card>
+</div>
+
+<ng-template #register>
+  <mat-card class="full-screen">
+    <mat-card-header>
+      <mat-card-title>
+        Bitte melden Sie sich an:
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
+
+        <br>
+        <mat-form-field class="register-full-width">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" name="email" placeholder="email" type="text">
+        </mat-form-field>
+        <br>
+        <mat-form-field class="register-full-width">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="pwd" name="pwd" placeholder="Pwd" type="password">
+        </mat-form-field>
+        <br>
+        
+        <br>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</ng-template>
