@@ -10,6 +10,15 @@ export const selectUserToken = createSelector(
   ({ token }) => token?.token
 )
 
+export const selectUserId = createSelector(
+  selectUserState,
+  ({ token }) => token?.id
+)
+export const selectUserName = createSelector(
+  selectUserState,
+  ({ token }) => token?.name
+)
+
 export const selectUsers = createSelector(
   selectUserState,
   ({ users }) => users

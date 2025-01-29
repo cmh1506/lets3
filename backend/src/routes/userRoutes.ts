@@ -3,6 +3,7 @@ import jwt from 'jwt-simple'
 import express, { Router } from 'express'
 import User from '../../models/User'
 import { Role } from '../../models/Role'
+import { users } from '../activeUsers'
 
 const router: Router = express.Router()
 
@@ -32,21 +33,28 @@ router.post('/login', async (req, res): Promise<any> => {
   if (!user) {
     res.status(401).send("User not registered.")
   }
-  bcrypt.compare(loginData.pwd, user?.pwd || "123", (err, isMatch) => {
-    if (err) {
-      res.status(401).send("Login failed.")
-    } else if (isMatch) {
-      createSendToken(res, user)
-    } else {
-      res.status(401).send("Wrong PW")
-    }  
-  })
+  if (user && user.pwd) {
+    bcrypt.compare(loginData.pwd, user.pwd, (err, isMatch) => {
+      if (err) {
+        res.status(401).send("Login failed.")
+      } else if (isMatch) {
+        createSendToken(res, user)
+      } else {
+        res.status(401).send("Wrong PW")
+      }  
+    })
+  } else {
+    res.status(401).send("Login failed.")
+  }  
 })
 
-router.get('/', checkAuthenticated, async (req, res) => {
+router.get('/', /* checkAuthenticated, */ async (req, res) => {
   try {
-    var users = await User.find({}, '-__v')
-    res.send(users)
+    //const usersFromDB = await User.find({}, '-__v')
+
+    const usersFromDB = await User.find({ '_id': { $in: Array.from(users.keys()) } });
+
+    res.send(usersFromDB)
   } catch (error) {
     res.send("Error getting users.")
   }
@@ -93,7 +101,9 @@ function checkAuthenticated (req: any, res: any, next: any) {
 function createSendToken(res: any, user: any) {
   var payload = { sub: user._id }
   var token = jwt.encode(payload, "This is secret")
-  return res.status(200).send({ token: token, role: user.role })
+  const id = user._id
+  const name = user.name
+  return res.status(200).send({ token: token, role: user.role, id: id, name: name})
 }
 
 export default userRoutes

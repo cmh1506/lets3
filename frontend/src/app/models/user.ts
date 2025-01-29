@@ -16,4 +16,6 @@ export interface LoginInfo {
 export interface Token {
   token: string
   role: Role
+  id: string,
+  name: string
 }

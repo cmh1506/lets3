@@ -14,7 +14,7 @@
   <table id="userTable" mat-table [dataSource]="users$" >
     <ng-container matColumnDef="name">
       <th *matHeaderCellDef mat-header-cell>Name</th>
-      <td *matCellDef="let u" mat-cell [routerLink]="['/user-form/', u['_id']]" style="cursor: pointer;"> {{u.name}} </td>
+      <td *matCellDef="let u" mat-cell (click)="openDialog( u['_id'])" style="cursor: pointer;"> {{u.name}} </td>
     </ng-container>
     <ng-container matColumnDef="role">
       <th *matHeaderCellDef mat-header-cell>Role</th>

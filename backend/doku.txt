@@ -12,5 +12,9 @@ npm i --save-dev @types/cors
 
 npm i --save-dev @types/bcrypt-nodejs
 
+npm i ws
+
+npm i --save-dev @types/ws
+
 
 npx ts-node ./src/app.ts

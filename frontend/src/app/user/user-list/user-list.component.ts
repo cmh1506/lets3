@@ -3,9 +3,15 @@ import { UserState } from '../../+state/user.reducer';
 import { Store } from '@ngrx/store';
 import { selectUsers } from '../../+state/user.selectors';
 import { UserPageActions } from '../../+state/user.actions';
+import { MatDialog } from '@angular/material/dialog';
+import { ChatDialogComponent } from '../../chat-dialog/chat-dialog.component';
+
+export interface DialogData {
+  id: string;
+}
 
 @Component({
-  selector: 'app-user-list',
+  selector: 'lets-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css'],
   standalone: false
@@ -13,7 +19,8 @@ import { UserPageActions } from '../../+state/user.actions';
 export class UserListComponent implements OnInit{
   
   constructor(
-    private store: Store<UserState>
+    private store: Store<UserState>,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -21,8 +28,19 @@ export class UserListComponent implements OnInit{
   }
 
   users$ = this.store.select(selectUsers)
-  displayedColumns = ['name', 'role'
-  ];
+  displayedColumns = ['name'/* , 'role' */];
   errorMessage$ = ""/* this.store.select(selectMaterialsErrorMessage) */
+
+
+  openDialog(id: string): void {
+    const dialogRef = this.dialog.open(ChatDialogComponent, {
+      width: '250px',
+      data: {id: id}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');      
+    });
+  }
 
 }

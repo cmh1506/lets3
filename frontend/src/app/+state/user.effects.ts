@@ -81,7 +81,7 @@ export class UserEffects {
         UserAPIActions.userLoginSuccess,
         UserAPIActions.userRegistrationSuccess        
       ),
-      tap(() => this.router.navigate(['/user-list']))
+      tap(() => this.router.navigate(['/main']))
     ),
     { dispatch: false }
   )  
@@ -92,7 +92,7 @@ export class UserEffects {
       ofType(
         UserAPIActions.userUpdatedSuccess       
       ),      
-      tap(() => this.router.navigate(['/user-list']))
+      tap(() => this.router.navigate(['/main']))
     ),
     { dispatch: false }
   )

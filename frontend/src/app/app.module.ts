@@ -25,15 +25,19 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { UserListComponent } from './user/user-list/user-list.component';
 import { UserFormComponent } from './user/user-form/user-form.component';
 import { RegisterComponent } from './user/register/register.component';
 import { LoginComponent } from './user/login/login.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptorService } from './auth-interceptor.service';
 import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
+import { MainComponent } from './main/main.component';
+import { ChatDialogComponent } from './chat-dialog/chat-dialog.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +45,9 @@ import { AppRoutingModule } from './app-routing.module';
     UserListComponent,
     UserFormComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    MainComponent,
+    ChatDialogComponent
   ],
   imports: [
     CommonModule,
@@ -49,6 +55,7 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
     StoreModule.forRoot({
       router: routerReducer,
       user: userReducer
@@ -64,7 +71,7 @@ import { AppRoutingModule } from './app-routing.module';
     MatButtonModule,
     MatSelectModule,
     MatRadioModule,
-    MatCardModule,    
+    MatCardModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
@@ -72,14 +79,16 @@ import { AppRoutingModule } from './app-routing.module';
     MatListModule,
     MatIconModule,
     MatMenuModule,
+    MatDialogModule,
+    MatFormFieldModule,
     ReactiveFormsModule,
   ],
   providers: [
     UserService, {
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptorService,
-    multi: true
-  }],
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
